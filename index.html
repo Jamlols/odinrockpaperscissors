@@ -5,8 +5,11 @@
         <title>Rock, Paper, Scissors</title>
     </head>
     <script>
+        let choice = ["rock", "paper", "scissors"];
         function getComputerChoice() {
-
+            return Math.floor(Math.random()*choice.length);
         }
+
+        console.log(getComputerChoice());
     </script>
 </html>
