@@ -1,6 +1,41 @@
+let rockButton = document.querySelector('#rock');
+    rockButton.addEventListener('click', function() {
+        playerSelection = 'rock';
+        game();
+    })
+    
+let paperButton = document.querySelector('#paper');
+    paperButton.addEventListener('click', function() {
+        playerSelection = 'paper';
+        game();
+    })
+
+let scissorsButton = document.querySelector('#scissors');
+    scissorsButton.addEventListener('click', function() {
+        playerSelection = 'scissors';
+        game();
+    })
+
+let gameCount = document.querySelector('#gameCount');
+    gameCount.innerText = '';
+
+let roundResultElement = document.querySelector('#roundResult');
+    roundResultElement.innerText = '';
+
+let playerScoreElement = document.querySelector('#playerScoreResult');
+    playerScoreElement.innerText = '';
+
+let computerScoreElement = document.querySelector('#computerScoreResult');
+    computerScoreElement.innerText = '';
+
+let finalResultElement = document.querySelector('#finalResult');
+    finalResultElement.innerText = '';
+
+
 const choice = ["rock", "paper", "scissors"];
 const counter = gameCounter();
 
+let playerSelection = '';
 
 let playerScore = 0;
 let computerScore = 0;
@@ -9,7 +44,8 @@ function gameCounter() { // Counts number of games.
     let count = 0;
         return function () {
             count++;
-            console.log("Game " + count);
+            gameCount.innerText = "Game " + count;
+            return count;
         }
 }
 
@@ -20,7 +56,6 @@ function game() {
         return choice[random]; 
     }
 
-    const playerSelection = "rock";
     const computerSelection = getComputerChoice();
 
     function playRound() { // The game logic.
@@ -63,28 +98,30 @@ function game() {
 
     let roundResult = playRound();
 
-    counter();
-    console.log(roundResult);
+    let currentGameCount = counter();
     updateScore(roundResult);
-    console.log(playerScore);
-    console.log(computerScore);
+    roundResultElement.innerText = "Result this round: " + roundResult;
+    playerScoreElement.innerText = "Player Score: " + playerScore;
+    computerScoreElement.innerText = "Computer Score: " + computerScore;
+
+    if (currentGameCount === 5) {
+        winOrLose();
+    }
+
+    function winOrLose() { // Displays at the end a winner or loser based on the score.
+
+        if (playerScore > computerScore) {
+            finalResultElement.innerText = 'Player wins!';
+        }
+        else if (computerScore > playerScore) {
+            finalResultElement.innerText = 'Computer wins!';
+        }
+        else {
+            finalResultElement.innerText = "It's all a tie!";
+        }
+    }
+
+
 }
 
-function winOrLose() { // Displays at the end a winner or loser based on the score. 
-    if (playerScore > computerScore) {
-        console.log("Player wins!");
-    }
-    else if (computerScore > playerScore) {
-        console.log("Computer wins!");
-    }
-    else {
-        console.log("It's all a tie!");
-    }
-}
 
-game();
-game();
-game();
-game();
-game();
-winOrLose();
